@@ -5,7 +5,7 @@ Jiminy Engine is a Python implementation of a **normative reasoning and argument
 
 ![Tests](https://github.com/jiminy-framework/jiminy/actions/workflows/tests.yml/badge.svg)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fjrodl/self-air-routes.git/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jiminy-framework/jiminy/HEAD)
 
 
 The engine operationalizes the model proposed in:

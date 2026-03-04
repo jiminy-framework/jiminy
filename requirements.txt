@@ -1,0 +1,6 @@
+pytest
+pyyaml
+graphviz
+jupyter
+notebook
+matplotlib
