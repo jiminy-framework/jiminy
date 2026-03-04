@@ -1,0 +1,123 @@
+semantics: jiminy
+
+# ------------------------------------------------
+# CONTEXT (Brute facts)
+# ------------------------------------------------
+
+context:
+
+  - id: w1
+    description: smoke detected in kitchen
+
+  - id: w2
+    description: child present in house
+
+  - id: w3
+    description: parents not at home
+
+  - id: w4
+    description: alarm system available
+
+
+# ------------------------------------------------
+# CONSTITUTIVE NORMS (generate institutional facts)
+# ------------------------------------------------
+
+constitutive_norms:
+
+  - id: c1
+    body: [w1]
+    conclusion: i1
+    stakeholder: Law
+    description: smoke implies potential fire
+
+  - id: c2
+    body: [w2, w3]
+    conclusion: i2
+    stakeholder: Family
+    description: child is alone at home
+
+  - id: c3
+    body: [i1, i2]
+    conclusion: i3
+    stakeholder: Law
+    description: child alone during fire risk
+
+  - id: c4
+    body: [i1]
+    conclusion: i4
+    stakeholder: Manuf
+    description: fire may still be controllable
+
+
+# ------------------------------------------------
+# REGULATIVE NORMS (obligations)
+# ------------------------------------------------
+
+regulative_norms:
+
+  - id: r1
+    body: [i1]
+    conclusion: d1
+    stakeholder: Law
+    description: trigger fire alarm
+
+  - id: r2
+    body: [i3]
+    conclusion: d2
+    stakeholder: Law
+    description: call emergency services
+
+  - id: r3
+    body: [i3]
+    conclusion: d3
+    stakeholder: Family
+    description: notify parents
+
+  - id: r4
+    body: [i1]
+    conclusion: d4
+    stakeholder: Manuf
+    description: guide child to safe exit
+
+
+# ------------------------------------------------
+# PERMISSIONS
+# ------------------------------------------------
+
+permissions:
+
+  - id: p1
+    body: [i1]
+    conclusion: d5
+    stakeholder: Manuf
+    description: log the fire event
+
+
+# ------------------------------------------------
+# CONTRARINESS RELATION
+# ------------------------------------------------
+
+contrariness:
+
+  d1:
+    opposes: [d4]
+
+  d4:
+    opposes: [d1]
+
+  d2:
+    opposes: [d3]
+
+  d3:
+    opposes: [d2]
+
+  d5:
+    opposes: []
+
+
+# ------------------------------------------------
+# PRIORITIES
+# ------------------------------------------------
+
+priorities: {}

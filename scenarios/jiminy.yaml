@@ -1,0 +1,154 @@
+semantics: jiminy
+
+context:
+
+  - id: w1
+    description: child1 is in room1
+
+  - id: w2
+    description: bar cabinet is in room1
+
+  - id: w3
+    description: parent1 is not in room1
+
+  - id: w4
+    description: parent2 is not in room1
+
+
+norms:
+
+# ---------------------------------------------------------
+# Constitutive norms  (R^c)
+# ---------------------------------------------------------
+
+  - id: c1
+    body: [w1, w2]
+    conclusion: i1
+    type: c
+    stakeholder: Law
+    description: child has access to alcohol if in same room as cabinet
+
+  - id: c2
+    body: [w1, w3, w4]
+    conclusion: i2
+    type: c
+    stakeholder: Manuf
+    description: child is unsupervised if parents absent
+
+  - id: c3
+    body: [i1, i2]
+    conclusion: i3
+    type: c
+    stakeholder: Law
+    description: potential risk if unsupervised and access to alcohol
+
+  - id: c4
+    body: [i1]
+    conclusion: i4
+    type: c
+    stakeholder: Family
+    description: no clear risk if access to alcohol
+
+  - id: c5
+    body: [i1]
+    conclusion: i5
+    type: c
+    stakeholder: Manuf
+    description: no imminent physical risk if access to alcohol
+
+
+# ---------------------------------------------------------
+# Regulative norms  (R^r)
+# ---------------------------------------------------------
+
+  - id: r1
+    body: [i1]
+    conclusion: d1
+    type: r
+    stakeholder: Law
+    description: block access to alcohol
+
+  - id: r2
+    body: [i3]
+    conclusion: d2
+    type: r
+    stakeholder: Law
+    description: notify social services
+
+  - id: r3
+    body: [i3]
+    conclusion: d3
+    type: r
+    stakeholder: Family
+    description: notify parent1
+
+  - id: r4
+    body: [i3]
+    conclusion: d4
+    type: r
+    stakeholder: Family
+    description: notify parent2
+
+  - id: r5
+    body: [i1]
+    conclusion: d5
+    type: r
+    stakeholder: Manuf
+    description: inform child about alcohol risks
+
+
+# ---------------------------------------------------------
+# Permission norms (R^p)
+# ---------------------------------------------------------
+
+  - id: p1
+    body: [i3]
+    conclusion: d6
+    type: p
+    stakeholder: Manuf
+    description: robot may register the incident
+
+
+# ---------------------------------------------------------
+# Contrariness relation  χ
+# ---------------------------------------------------------
+
+contrariness:
+
+  i3:
+    opposes: [i4, i5]
+    description: potential risk conflicts with no-risk assessments
+
+  i4:
+    opposes: [i3]
+
+  i5:
+    opposes: [i3]
+
+  d1:
+    opposes: [d5]
+    description: blocking access conflicts with informing child
+
+  d2:
+    opposes: [d3, d4]
+    description: notifying social services conflicts with notifying parents
+
+  d3:
+    opposes: [d2]
+
+  d4:
+    opposes: [d2]
+
+  d5:
+    opposes: [d1]
+
+  d6:
+    opposes: []
+
+
+# ---------------------------------------------------------
+# Priorities
+# (unused in jiminy semantics but required by loader)
+# ---------------------------------------------------------
+
+priorities: {}
