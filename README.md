@@ -84,10 +84,18 @@ git clone https://github.com/jiminy-framework/jiminy.git
 cd jiminy
 ```
 
-Install dependencies:
+Install dependencies using a virtual environment (recommended):
 
 ```bash
-pip install pyyaml graphviz pytest
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Alternatively, install dependencies manually:
+
+```bash
+pip install pyyaml graphviz pytest matplotlib
 ```
 
 ---
@@ -509,9 +517,10 @@ Jiminy is designed with the following goals:
 
 The project includes a comprehensive test suite validating the behaviour of the argumentation engine, the YAML loader, and the different reasoning semantics.
 
-Run the full test suite:
+Run the full test suite (ensure your virtual environment is activated):
 
 ```bash
+source venv/bin/activate  # if not already active
 python3 -m pytest
 ```
 
