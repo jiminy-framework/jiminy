@@ -28,7 +28,7 @@ priorities:
     f = tmp_path / "scenario.yaml"
     f.write_text(yaml_content)
 
-    (context, norms, contr, prio, ctx_desc, norm_desc, cdesc, pdesc) = load_scenario(str(f))
+    (context, norms, contr, prio, ctx_desc, norm_desc, cdesc, pdesc, base_priorities, meta_priorities) = load_scenario(str(f))
 
     assert "w1" in context
     assert ctx_desc["w1"] == "Test fact"

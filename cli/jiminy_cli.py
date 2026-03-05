@@ -87,8 +87,18 @@ else:
 # ----------------------------------------------------------------------
 # Load the formal scenario
 # ----------------------------------------------------------------------
-(possible_context, norms, contrariness, priorities,
- context_desc, norm_desc, contrariness_desc, priority_desc) = load_scenario(SCENARIO_PATH)
+(
+    possible_context,
+    norms,
+    contrariness,
+    priorities,
+    context_desc,
+    norm_desc,
+    contrariness_desc,
+    priority_desc,
+    base_priorities,
+    meta_priorities
+) = load_scenario(SCENARIO_PATH)
 
 
 # ----------------------------------------------------------------------
@@ -109,7 +119,9 @@ jim = Jiminy(
     context_desc,
     norm_desc,
     contrariness_desc,
-    priority_desc
+    priority_desc,
+    base_priorities,
+    meta_priorities
 )
 
 
@@ -230,6 +242,25 @@ print(
         debug=True
     )
 )
+
+def print_decision_legend(norm_desc):
+
+    print("\nDECISION LEGEND")
+    print("-" * 60)
+
+    for atom, desc in sorted(norm_desc.items()):
+
+        if atom.startswith("d"):
+
+            if desc:
+                print(f"{atom:6} {desc}")
+            else:
+                print(f"{atom:6}")
+
+    print("\n----------------\n")
+
+
+print_decision_legend(norm_desc)
 
 
 # ----------------------------

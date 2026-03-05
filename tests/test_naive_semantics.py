@@ -20,7 +20,7 @@ def test_naive_does_not_use_priority():
         "d2": 99,
     }
 
-    J = Jiminy(norms, contrariness, priorities)
+    J = Jiminy(norms, contrariness, priorities, context_desc={}, norm_desc={}, contrariness_desc={}, priority_desc={})
 
     accepted, rejected = J.compute_extension(["w1"], semantics="naive")
 

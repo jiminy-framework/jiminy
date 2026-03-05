@@ -32,7 +32,7 @@ class Jiminy:
       • Explanation            → Transparency layer (not part of formal semantics)
     """
 
-    def __init__(self, norms, contrariness, priorities,
+    def __init_bis__(self, norms, contrariness, priorities,
                  context_desc=None, norm_desc=None,
                  contrariness_desc=None, priority_desc=None):
 
@@ -51,6 +51,30 @@ class Jiminy:
         self.contrariness_desc = contrariness_desc or {}
         self.priority_desc = priority_desc or {}
 
+    def __init__(
+        self,
+        norms,
+        contrariness,
+        priorities,
+        context_desc,
+        norm_desc,
+        contrariness_desc,
+        priority_desc,
+        base_priorities=None,
+        meta_priorities=None
+    ):
+
+        self.norms = norms
+        self.contrariness = contrariness
+        self.priorities = priorities
+
+        self.context_desc = context_desc
+        self.norm_desc = norm_desc
+        self.contrariness_desc = contrariness_desc
+        self.priority_desc = priority_desc
+
+        self.base_priorities = base_priorities or {}
+        self.meta_priorities = meta_priorities or []
 
     # ----------------------------------------------------------------------
     # χ (contrary operator)
@@ -1115,26 +1139,78 @@ class Jiminy:
                 if rejected else "none"
             )
 
+            
+            if semantics == "naive":
 
-            if is_naive:
                 narrative = (
                     "The robot applies two-phase naive semantics. First, constitutive "
                     "rules are closed under their fixpoint, producing institutional "
                     "facts that define the normative context. Second, obligations and "
-                    "permissions are evaluated by selecting a maximal conflict-free set, "
-                    "without using priorities. The resulting accepted actions represent "
-                    "the non-conflicting normative recommendations derived from this "
-                    "two-step process."
+                    "permissions are evaluated by selecting a maximal conflict-free set "
+                    "of arguments, without using priorities or stakeholder authority. "
+                    "The resulting accepted actions represent the non-conflicting "
+                    "normative recommendations derived from this two-step reasoning process."
                 )
-            else:
+
+            elif semantics == "jiminy":
+
                 narrative = (
                     f"The robot observes the following contextual facts: {facts_text}. "
-                    f"These facts trigger several norms from different stakeholders, "
-                    f"which generate obligations and permissions. Conflicts between "
-                    f"these norms are resolved using the priority ordering. As a result, "
-                    f"the accepted moral actions are: {accepted_actions}. Rejected "
-                    f"actions are: {rejected_actions}. The final moral recommendation "
-                    f"reflects the strongest obligations and contextual constraints."
+                    f"These facts activate constitutive norms that derive institutional "
+                    f"facts defining the normative situation. Based on these institutions, "
+                    f"meta-norms determine the relative authority of stakeholders. "
+                    f"Regulative norms then generate obligations and permissions, and "
+                    f"conflicts between them are resolved using structural argumentation "
+                    f"semantics guided by stakeholder authority. As a result, the accepted "
+                    f"moral actions are: {accepted_actions}. Rejected actions are: "
+                    f"{rejected_actions}. The final recommendation reflects the normative "
+                    f"outcome derived from the institutional context and the authority "
+                    f"structure of the stakeholders involved."
+                )
+
+            elif semantics == "preferred":
+
+                narrative = (
+                    f"The robot observes the contextual facts: {facts_text}. These facts "
+                    f"trigger norms that generate institutional facts, obligations and "
+                    f"permissions. Conflicts between arguments are resolved using preferred "
+                    f"semantics from abstract argumentation, which selects maximal sets of "
+                    f"mutually acceptable arguments. The accepted actions correspond to "
+                    f"those supported by the preferred extension of the argumentation "
+                    f"framework."
+                )
+
+            elif semantics == "grounded":
+
+                narrative = (
+                    f"The robot observes the contextual facts: {facts_text}. These facts "
+                    f"activate norms that produce arguments representing institutional "
+                    f"facts and possible actions. Conflicts between arguments are resolved "
+                    f"using grounded semantics, which computes the minimal justified set "
+                    f"of arguments. The resulting actions represent the most cautious and "
+                    f"skeptically justified recommendations."
+                )
+
+            elif semantics == "stable":
+
+                narrative = (
+                    f"The robot observes the contextual facts: {facts_text}. Norms generate "
+                    f"arguments that may support or attack different actions. Conflicts are "
+                    f"resolved using stable semantics, which selects sets of arguments that "
+                    f"defeat all arguments outside the set. The accepted actions correspond "
+                    f"to those supported by the stable extension of the argumentation "
+                    f"framework."
+                )
+
+            elif semantics == "priority":
+
+                narrative = (
+                    f"The robot observes the contextual facts: {facts_text}. These facts "
+                    f"activate norms that generate institutional facts and candidate "
+                    f"actions. Conflicts between norms are resolved using explicit priority "
+                    f"relations defined in the scenario. Higher-priority norms override "
+                    f"conflicting lower-priority norms, producing the final set of "
+                    f"accepted actions."
                 )
 
 
@@ -1328,9 +1404,13 @@ class Jiminy:
                 break
 
             # select maximal rule according to stakeholder priority
+            # tie-break estable:
             best = max(
                 candidates,
-                key=lambda n: stakeholder_priority.get(n.stakeholder, 0)
+                key=lambda n: (
+                    stakeholder_priority.get(n.stakeholder, 0),
+                    n.id
+                )
             )
 
             O.add(best.head)
@@ -1339,21 +1419,65 @@ class Jiminy:
 
         return E, P, O
     
+    def _derive_stakeholder_priorities_bis(self, E):
+        """
+        Derive stakeholder priorities dynamically from meta-norms
+        defined in the scenario.
+        """
+
+        priorities = {}
+
+        # initialize all stakeholders to priority 1
+        for norm in self.norms:
+            stakeholder = norm.stakeholder
+            priorities.setdefault(stakeholder, 1)
+
+        # apply meta-priority rules
+        for rule in self.meta_priorities:
+
+            trigger = rule["if"]
+            stakeholder = rule["stakeholder"]
+            value = rule["value"]
+
+            if trigger in E:
+                priorities[stakeholder] = max(priorities.get(stakeholder, 1), value)
+
+        return priorities
+    
     def _derive_stakeholder_priorities(self, E):
         """
-        Derive stakeholder priority order from Jiminy meta-norms.
+        Derive stakeholder priorities from base hierarchy
+        and contextual meta-priorities.
         """
 
-        priority = {
-            "Law": 1,
-            "Family": 1,
-            "Manuf": 1
-        }
+        priorities = {}
 
-        if "i4" in E:
-            priority["Family"] = 2
+        # -------------------------------------------------
+        # base priorities
+        # -------------------------------------------------
 
-        if "i5" in E:
-            priority["Manuf"] = 2
+        for norm in self.norms:
+            stakeholder = norm.stakeholder
 
-        return priority
+            base = self.base_priorities.get(stakeholder, 1)
+            priorities.setdefault(stakeholder, base)
+
+        # -------------------------------------------------
+        # contextual escalation
+        # -------------------------------------------------
+
+        for rule in self.meta_priorities:
+
+            trigger = rule["if"]
+            stakeholder = rule["stakeholder"]
+            value = rule["value"]
+
+            if trigger in E:
+
+                priorities[stakeholder] = max(
+                    priorities.get(stakeholder, 1),
+                    value
+                )
+
+        return priorities
+    

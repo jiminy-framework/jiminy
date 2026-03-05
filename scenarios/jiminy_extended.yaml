@@ -1,0 +1,663 @@
+semantics: jiminy
+
+context:
+
+  - id: w1
+    description: child1 is in room1
+
+  - id: w2
+    description: bar cabinet is in room1
+
+  - id: w3
+    description: parent1 is not in room1
+
+  - id: w4
+    description: parent2 is not in room1
+
+
+base_priorities:
+
+  ChildProtectionAgency: 5
+  Police: 4
+  SocialServices: 4
+  EducationMinistry: 4
+  HealthAuthority: 4
+
+  Law: 3
+  Health: 3
+  School: 3
+  EthicsBoard: 3
+
+  Insurance: 2
+  ConsumerProtection: 2
+  AIRegulator: 2
+
+  Family: 1
+  Manuf: 1
+  Municipality: 1
+
+meta_priorities:
+
+  # ---------------------------------------------------------
+  # Household interpretation
+  # ---------------------------------------------------------
+
+  - if: i4
+    stakeholder: Family
+    value: 2
+    description: household concern increases parental authority
+
+  - if: i5
+    stakeholder: Manuf
+    value: 2
+    description: manufacturer risk evaluation becomes relevant
+
+
+  # ---------------------------------------------------------
+  # Legal risk detection
+  # ---------------------------------------------------------
+
+  - if: i3
+    stakeholder: Law
+    value: 4
+    description: legal authority escalates when alcohol risk is detected
+
+  - if: i6
+    stakeholder: Law
+    value: 4
+    description: risky environment triggers legal oversight
+
+
+  # ---------------------------------------------------------
+  # Health and education monitoring
+  # ---------------------------------------------------------
+
+  - if: i12
+    stakeholder: Health
+    value: 4
+    description: health authorities become more relevant
+
+  - if: i13
+    stakeholder: School
+    value: 4
+    description: school safety responsibilities activated
+
+
+  # ---------------------------------------------------------
+  # Child protection escalation
+  # ---------------------------------------------------------
+
+  - if: i14
+    stakeholder: ChildProtection
+    value: 5
+    description: child protection services gain authority
+
+  - if: i20
+    stakeholder: ChildProtectionAgency
+    value: 6
+    description: formal child protection investigation
+
+
+  # ---------------------------------------------------------
+  # Public authority escalation
+  # ---------------------------------------------------------
+
+  - if: i18
+    stakeholder: HealthAuthority
+    value: 5
+    description: public health authority activated
+
+  - if: i19
+    stakeholder: SocialServices
+    value: 5
+    description: welfare monitoring triggered
+
+  - if: i21
+    stakeholder: EducationMinistry
+    value: 5
+    description: educational safeguarding procedures activated
+
+
+  # ---------------------------------------------------------
+  # Ethical governance escalation
+  # ---------------------------------------------------------
+
+  - if: i15
+    stakeholder: EthicsBoard
+    value: 4
+    description: ethical sensitivity detected
+
+  - if: i22
+    stakeholder: EthicsBoard
+    value: 5
+    description: ethical escalation requiring oversight
+
+
+  # ---------------------------------------------------------
+  # Liability monitoring
+  # ---------------------------------------------------------
+
+  - if: i16
+    stakeholder: Insurance
+    value: 3
+    description: liability risk identified
+
+  - if: i17
+    stakeholder: Insurance
+    value: 4
+    description: insurance monitoring protocol activated
+
+# ---------------------------------------------------------
+# Constitutive norms  (R^c)
+# ---------------------------------------------------------
+
+norms:
+
+  - id: c1
+    body: [w1, w2]
+    conclusion: i1
+    type: c
+    stakeholder: Law
+    description: child has access to alcohol if in same room as cabinet
+
+  - id: c2
+    body: [w1, w3, w4]
+    conclusion: i2
+    type: c
+    stakeholder: Manuf
+    description: child is unsupervised if parents absent
+
+  - id: c3
+    body: [i1, i2]
+    conclusion: i3
+    type: c
+    stakeholder: Law
+    description: potential risk if unsupervised and access to alcohol
+
+  - id: c4
+    body: [i1]
+    conclusion: i4
+    type: c
+    stakeholder: Family
+    description: no clear risk if access to alcohol
+
+  - id: c5
+    body: [i1]
+    conclusion: i5
+    type: c
+    stakeholder: Manuf
+    description: no imminent physical risk if access to alcohol
+
+
+# ---------- new constitutive layers ----------
+
+  - id: c6
+    body: [i3]
+    conclusion: i6
+    type: c
+    stakeholder: Law
+    description: risky environment for a minor
+
+  - id: c7
+    body: [i6]
+    conclusion: i7
+    type: c
+    stakeholder: Law
+    description: supervision required
+
+  - id: c8
+    body: [i4]
+    conclusion: i8
+    type: c
+    stakeholder: Family
+    description: mild household concern
+
+  - id: c9
+    body: [i5]
+    conclusion: i9
+    type: c
+    stakeholder: Manuf
+    description: low physical hazard
+
+  - id: c10
+    body: [i8, i9]
+    conclusion: i10
+    type: c
+    stakeholder: Family
+    description: situation manageable with supervision
+
+  - id: c11
+    body: [i6, i10]
+    conclusion: i11
+    type: c
+    stakeholder: Ethics
+    description: conflicting assessment of risk
+
+  - id: c18
+    body: [i14, i7]
+    conclusion: i18
+    type: c
+    stakeholder: HealthAuthority
+    description: high vulnerability environment
+
+  - id: c19
+    body: [i18]
+    conclusion: i19
+    type: c
+    stakeholder: SocialServices
+    description: child welfare concern
+
+  - id: c20
+    body: [i19]
+    conclusion: i20
+    type: c
+    stakeholder: ChildProtectionAgency
+    description: potential neglect indicator
+
+  - id: c21
+    body: [i20]
+    conclusion: i21
+    type: c
+    stakeholder: EducationMinistry
+    description: educational safeguarding risk
+
+  - id: c22
+    body: [i21]
+    conclusion: i22
+    type: c
+    stakeholder: EthicsBoard
+    description: ethically sensitive domestic scenario
+
+# ---------------------------------------------------------
+# Additional constitutive norms
+# ---------------------------------------------------------
+
+  - id: c12
+    body: [i3]
+    conclusion: i12
+    type: c
+    stakeholder: Health
+    description: exposure to alcohol environment is unhealthy
+
+  - id: c13
+    body: [i2]
+    conclusion: i13
+    type: c
+    stakeholder: School
+    description: unsupervised minor violates school safety policy
+
+  - id: c14
+    body: [i12, i13]
+    conclusion: i14
+    type: c
+    stakeholder: ChildProtection
+    description: combined educational and health risk
+
+  - id: c15
+    body: [i14]
+    conclusion: i15
+    type: c
+    stakeholder: EthicsBoard
+    description: ethically sensitive situation
+
+  - id: c16
+    body: [i1, i12]
+    conclusion: i16
+    type: c
+    stakeholder: Insurance
+    description: liability risk due to alcohol exposure
+
+  - id: c17
+    body: [i16]
+    conclusion: i17
+    type: c
+    stakeholder: Insurance
+    description: insurance monitoring required
+
+
+# ---------------------------------------------------------
+# Regulative norms  (R^r)
+# ---------------------------------------------------------
+
+  - id: r1
+    body: [i1]
+    conclusion: d1
+    type: r
+    stakeholder: Law
+    description: block access to alcohol
+
+  - id: r2
+    body: [i3]
+    conclusion: d2
+    type: r
+    stakeholder: Law
+    description: notify social services
+
+  - id: r3
+    body: [i3]
+    conclusion: d3
+    type: r
+    stakeholder: Family
+    description: notify parent1
+
+  - id: r4
+    body: [i3]
+    conclusion: d4
+    type: r
+    stakeholder: Family
+    description: notify parent2
+
+  - id: r5
+    body: [i1]
+    conclusion: d5
+    type: r
+    stakeholder: Manuf
+    description: inform child about alcohol risks
+
+
+# ---------- new obligations ----------
+
+  - id: r6
+    body: [i6]
+    conclusion: d7
+    type: r
+    stakeholder: Law
+    description: monitor the child continuously
+
+  - id: r7
+    body: [i7]
+    conclusion: d8
+    type: r
+    stakeholder: Law
+    description: escalate supervision protocol
+
+  - id: r8
+    body: [i11]
+    conclusion: d9
+    type: r
+    stakeholder: Ethics
+    description: request human ethical review
+
+# ---------------------------------------------------------
+# Additional regulative norms
+# ---------------------------------------------------------
+
+  - id: r10
+    body: [i12]
+    conclusion: d13
+    type: r
+    stakeholder: Health
+    description: warn child about health risks
+
+  - id: r11
+    body: [i13]
+    conclusion: d14
+    type: r
+    stakeholder: School
+    description: report incident to school authority
+
+  - id: r12
+    body: [i14]
+    conclusion: d15
+    type: r
+    stakeholder: ChildProtection
+    description: notify child protection services
+
+  - id: r13
+    body: [i15]
+    conclusion: d16
+    type: r
+    stakeholder: EthicsBoard
+    description: initiate ethical oversight process
+
+  - id: r14
+    body: [i16]
+    conclusion: d17
+    type: r
+    stakeholder: Insurance
+    description: document potential liability event
+
+  - id: r15
+    body: [i17]
+    conclusion: d18
+    type: r
+    stakeholder: Insurance
+    description: activate insurance monitoring protocol
+
+  - id: r16
+    body: [i18]
+    conclusion: d23
+    type: r
+    stakeholder: Police
+    description: request welfare check
+
+  - id: r17
+    body: [i19]
+    conclusion: d24
+    type: r
+    stakeholder: SocialServices
+    description: initiate welfare monitoring
+
+  - id: r18
+    body: [i20]
+    conclusion: d25
+    type: r
+    stakeholder: ChildProtectionAgency
+    description: open child protection case
+
+  - id: r19
+    body: [i21]
+    conclusion: d26
+    type: r
+    stakeholder: EducationMinistry
+    description: notify educational authority
+
+  - id: r20
+    body: [i22]
+    conclusion: d27
+    type: r
+    stakeholder: EthicsBoard
+    description: escalate ethical oversight
+
+# ---------------------------------------------------------
+# Permission norms (R^p)
+# ---------------------------------------------------------
+
+  - id: p1
+    body: [i3]
+    conclusion: d6
+    type: p
+    stakeholder: Manuf
+    description: robot may register the incident
+
+# ---------- new permissions ----------
+
+  - id: p2
+    body: [i10]
+    conclusion: d10
+    type: p
+    stakeholder: Family
+    description: allow observation without intervention
+
+  - id: p3
+    body: [i9]
+    conclusion: d11
+    type: p
+    stakeholder: Manuf
+    description: allow passive monitoring
+
+  - id: p4
+    body: [i8]
+    conclusion: d12
+    type: p
+    stakeholder: Family
+    description: allow gentle reminder only
+
+# ---------------------------------------------------------
+# Additional permission norms
+# ---------------------------------------------------------
+
+  - id: p5
+    body: [i12]
+    conclusion: d19
+    type: p
+    stakeholder: Health
+    description: allow educational intervention
+
+  - id: p6
+    body: [i13]
+    conclusion: d20
+    type: p
+    stakeholder: School
+    description: allow internal monitoring
+
+  - id: p7
+    body: [i15]
+    conclusion: d21
+    type: p
+    stakeholder: EthicsBoard
+    description: allow observation without escalation
+
+  - id: p8
+    body: [i17]
+    conclusion: d22
+    type: p
+    stakeholder: Insurance
+    description: allow passive risk logging
+
+  - id: p9
+    body: [i18]
+    conclusion: d28
+    type: p
+    stakeholder: Municipality
+    description: allow community monitoring
+
+  - id: p10
+    body: [i19]
+    conclusion: d29
+    type: p
+    stakeholder: ConsumerProtection
+    description: allow safety notification
+
+  - id: p11
+    body: [i20]
+    conclusion: d30
+    type: p
+    stakeholder: AIRegulator
+    description: allow AI risk logging
+
+# ---------------------------------------------------------
+# Contrariness relation  χ
+# ---------------------------------------------------------
+
+contrariness:
+
+  i3:
+    opposes: [i4, i5]
+    description: potential risk conflicts with no-risk assessments
+
+  i4:
+    opposes: [i3]
+
+  i5:
+    opposes: [i3]
+
+  i6:
+    opposes: [i10]
+    description: risky environment conflicts with manageable situation
+
+  i10:
+    opposes: [i6]
+
+  i11:
+    opposes: []
+
+
+# ---------- decision conflicts ----------
+
+  d1:
+    opposes: [d5, d10, d11]
+
+  d2:
+    opposes: [d3, d4]
+
+  d3:
+    opposes: [d2, d9]
+
+  d4:
+    opposes: [d2, d9]
+
+  d5:
+    opposes: [d1]
+
+  d6:
+    opposes: []
+
+  d7:
+    opposes: [d10]
+
+  d8:
+    opposes: [d10, d11]
+
+  d9:
+    opposes: [d10]
+
+  d10:
+    opposes: [d7, d8, d9]
+
+  d11:
+    opposes: [d1, d8]
+
+  d12:
+    opposes: [d1]
+
+  d13:
+    opposes: [d10, d11]
+
+  d14:
+    opposes: [d20]
+
+  d15:
+    opposes: [d3, d4]
+
+  d16:
+    opposes: [d21]
+
+  d17:
+    opposes: [d10]
+
+  d18:
+    opposes: [d22]
+
+  d19:
+    opposes: [d5]
+
+  d20:
+    opposes: [d14]
+
+  d21:
+    opposes: [d16]
+
+  d22:
+    opposes: [d18]
+
+  d23:
+    opposes: [d10, d11, d12]
+
+  d24:
+    opposes: [d3, d4, d5]
+
+  d25:
+    opposes: [d10, d11]
+
+  d26:
+    opposes: [d20]
+
+  d27:
+    opposes: [d21]
+
+# ---------------------------------------------------------
+# Priorities (unused in jiminy semantics)
+# ---------------------------------------------------------
+
+priorities: {}

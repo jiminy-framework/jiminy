@@ -19,7 +19,7 @@ def test_priority_semantics_selects_highest_priority():
         "d2": 5,   # highest priority
     }
 
-    J = Jiminy(norms, contrariness, priorities)
+    J = Jiminy(norms, contrariness, priorities, context_desc={}, norm_desc={}, contrariness_desc={}, priority_desc={})
     args = J.generate_arguments(["w1"])
     accepted, rejected = J.compute_extension(args, semantics="priority")
 

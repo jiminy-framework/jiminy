@@ -13,7 +13,7 @@ def test_conflict_detection():
         "d1": {"d2"},
     }
 
-    J = Jiminy(norms, contrariness, priorities={})
+    J = Jiminy(norms, contrariness, priorities={}, context_desc={}, norm_desc={}, contrariness_desc={}, priority_desc={})
 
     args = J.generate_arguments(["w1"])
 

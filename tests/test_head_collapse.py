@@ -28,7 +28,9 @@ def jim():
         context_desc,
         norm_desc,
         contrariness_desc,
-        priority_desc
+        priority_desc,
+        base_priorities,
+        meta_priorities
     ) = load_scenario(SCENARIO)
 
     return Jiminy(

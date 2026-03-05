@@ -94,7 +94,9 @@ def test_constitutive_rules_are_acyclic():
         context_desc,
         norm_desc,
         contrariness_desc,
-        priority_desc
+        priority_desc,
+        base_priorities,
+        meta_priorities
     ) = load_scenario(SCENARIO)
 
     graph = build_constitutive_graph(norms)

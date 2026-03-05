@@ -22,6 +22,8 @@ def load_agrobot():
         norm_desc,
         contrariness_desc,
         priority_desc,
+        base_priorities,
+        meta_priorities,
     ) = load_scenario(SCENARIO_PATH)
 
     jim = Jiminy(

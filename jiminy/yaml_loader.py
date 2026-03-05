@@ -96,6 +96,20 @@ def load_scenario(path):
         priority_desc[concl] = pdata.get("description", "")
 
     # ================================================================
+    # BASE PRIORITIES (stakeholder authority)
+    # ================================================================
+
+    base_priorities = data.get("base_priorities", {})
+    print(f"[INFO] Base priorities loaded: {len(base_priorities)}")
+
+    # ================================================================
+    # META PRIORITIES (dynamic authority rules)
+    # ================================================================
+
+    meta_priorities = data.get("meta_priorities", [])
+    print(f"[INFO] Meta-priority rules loaded: {len(meta_priorities)}")
+    
+    # ================================================================
     # RETURN STRUCTURE
     # ================================================================
 
@@ -107,5 +121,7 @@ def load_scenario(path):
         context_desc,
         norm_descriptions,
         contrariness_desc,
-        priority_desc
+        priority_desc,
+        base_priorities,
+        meta_priorities
     )

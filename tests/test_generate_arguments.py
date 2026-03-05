@@ -9,7 +9,7 @@ def test_generate_arguments_with_closure():
         Norm(["i1"], "d1", tau="p", stakeholder="X")
     ]
 
-    J = Jiminy(norms, contrariness={}, priorities={})
+    J = Jiminy(norms, contrariness={}, priorities={}, context_desc={}, norm_desc={}, contrariness_desc={}, priority_desc={})
 
     args = J.generate_arguments(context=["w1"])
 
