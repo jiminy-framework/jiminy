@@ -54,24 +54,24 @@ class Jiminy:
     def __init__(
         self,
         norms,
-        contrariness,
-        priorities,
-        context_desc,
-        norm_desc,
-        contrariness_desc,
-        priority_desc,
+        contrariness=None,
+        priorities=None,
+        context_desc=None,
+        norm_desc=None,
+        contrariness_desc=None,
+        priority_desc=None,
         base_priorities=None,
         meta_priorities=None
     ):
 
         self.norms = norms
-        self.contrariness = contrariness
-        self.priorities = priorities
+        self.contrariness = contrariness or {}
+        self.priorities = priorities or {}
 
-        self.context_desc = context_desc
-        self.norm_desc = norm_desc
-        self.contrariness_desc = contrariness_desc
-        self.priority_desc = priority_desc
+        self.context_desc = context_desc or {}
+        self.norm_desc = norm_desc or {}
+        self.contrariness_desc = contrariness_desc or {}
+        self.priority_desc = priority_desc or {}
 
         self.base_priorities = base_priorities or {}
         self.meta_priorities = meta_priorities or []

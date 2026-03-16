@@ -753,6 +753,24 @@ This scenario activates a different reasoning path and produces a different reco
 
 ---
 
+## Running the TUI Option
+
+To run the Textual User Interface (TUI) for Jiminy, use the following command:
+
+```bash
+python3 -m tui.run_tui <scenario_file>
+```
+
+Replace `<scenario_file>` with the path to your desired scenario file. For example:
+
+```bash
+python3 -m tui.run_tui scenarios/candy_unified.yaml
+```
+
+You will be able to activate or deactive the w_1 using the keyboard.
+
+---
+
 # Citation
 
 If you use Jiminy Engine in academic work, please cite:

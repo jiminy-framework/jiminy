@@ -1,0 +1,42 @@
+#right-side {
+    width: 60%;
+    height: 100%;
+}
+
+#facts_panel {
+    width: 40%;
+    height: 100%;
+    overflow-y: auto;
+    border: solid yellow;
+}
+
+ArgumentationPanel {
+    overflow-y: auto;
+    max-height: 1fr;
+    padding: 1 1;
+    border: tall yellow;
+}
+
+#narrative_panel {
+    height: 1fr;
+    overflow-y: auto;
+    border: solid blue;
+}
+
+#actions_panel {
+    width: 25%;
+    border: solid red;
+    padding: 1;
+}
+
+HelpPanel {
+    dock: bottom;
+    width: 100%;
+}
+
+/* 🟪 Dung / Storyboard: MÁS ALTO */
+#dung_panel {
+    height: 2fr;
+    overflow-y: auto;
+    border: solid magenta;
+}

@@ -8,7 +8,7 @@ def test_explain_hides_priorities_in_naive():
         Norm(["w1"], "d1", tau="p", stakeholder="X"),
     ]
 
-    J = Jiminy(norms, contrariness={}, priorities={"d1": 10}, context_desc={}, norm_desc={}, contrariness_desc={}, priority_desc={})
+    J = Jiminy(norms, contrariness={}, priorities={"d1": 10})
 
     accepted, rejected = J.compute_extension(["w1"], semantics="naive")
 
