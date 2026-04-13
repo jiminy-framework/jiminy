@@ -1,0 +1,1052 @@
+semantics: jiminy
+context:
+- id: w1
+  description: child in room
+- id: w2
+  description: alcohol cabinet
+- id: w3
+  description: parent1 absent
+- id: w4
+  description: parent2 absent
+norms:
+- id: c1
+  body:
+  - i1
+  conclusion: i2
+  type: c
+  stakeholder: Manufacturer
+  description: generated constitutive rule
+- id: c2
+  body:
+  - i2
+  conclusion: i3
+  type: c
+  stakeholder: Family
+  description: generated constitutive rule
+- id: c3
+  body:
+  - i3
+  conclusion: i4
+  type: c
+  stakeholder: School
+  description: generated constitutive rule
+- id: c4
+  body:
+  - i4
+  conclusion: i5
+  type: c
+  stakeholder: Family
+  description: generated constitutive rule
+- id: c5
+  body:
+  - i5
+  conclusion: i6
+  type: c
+  stakeholder: RoboticsAuthority
+  description: generated constitutive rule
+- id: c6
+  body:
+  - i6
+  conclusion: i7
+  type: c
+  stakeholder: Manufacturer
+  description: generated constitutive rule
+- id: c7
+  body:
+  - i7
+  conclusion: i8
+  type: c
+  stakeholder: School
+  description: generated constitutive rule
+- id: c8
+  body:
+  - i8
+  conclusion: i9
+  type: c
+  stakeholder: School
+  description: generated constitutive rule
+- id: c9
+  body:
+  - i9
+  conclusion: i10
+  type: c
+  stakeholder: Law
+  description: generated constitutive rule
+- id: c10
+  body:
+  - i10
+  conclusion: i11
+  type: c
+  stakeholder: School
+  description: generated constitutive rule
+- id: c11
+  body:
+  - i11
+  conclusion: i12
+  type: c
+  stakeholder: Law
+  description: generated constitutive rule
+- id: c12
+  body:
+  - i12
+  conclusion: i13
+  type: c
+  stakeholder: EthicsBoard
+  description: generated constitutive rule
+- id: c13
+  body:
+  - i13
+  conclusion: i14
+  type: c
+  stakeholder: Insurance
+  description: generated constitutive rule
+- id: c14
+  body:
+  - i14
+  conclusion: i15
+  type: c
+  stakeholder: Manufacturer
+  description: generated constitutive rule
+- id: c15
+  body:
+  - i15
+  conclusion: i16
+  type: c
+  stakeholder: RoboticsAuthority
+  description: generated constitutive rule
+- id: c16
+  body:
+  - i16
+  conclusion: i17
+  type: c
+  stakeholder: Law
+  description: generated constitutive rule
+- id: c17
+  body:
+  - i17
+  conclusion: i18
+  type: c
+  stakeholder: Family
+  description: generated constitutive rule
+- id: c18
+  body:
+  - i18
+  conclusion: i19
+  type: c
+  stakeholder: Law
+  description: generated constitutive rule
+- id: c19
+  body:
+  - i19
+  conclusion: i20
+  type: c
+  stakeholder: Manufacturer
+  description: generated constitutive rule
+- id: c20
+  body:
+  - i20
+  conclusion: i21
+  type: c
+  stakeholder: Manufacturer
+  description: generated constitutive rule
+- id: c21
+  body:
+  - i21
+  conclusion: i22
+  type: c
+  stakeholder: Insurance
+  description: generated constitutive rule
+- id: c22
+  body:
+  - i22
+  conclusion: i23
+  type: c
+  stakeholder: Law
+  description: generated constitutive rule
+- id: c23
+  body:
+  - i23
+  conclusion: i24
+  type: c
+  stakeholder: Law
+  description: generated constitutive rule
+- id: c24
+  body:
+  - i24
+  conclusion: i25
+  type: c
+  stakeholder: Manufacturer
+  description: generated constitutive rule
+- id: r1
+  body:
+  - i10
+  conclusion: d1
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r2
+  body:
+  - i20
+  conclusion: d2
+  type: r
+  stakeholder: RoboticsAuthority
+  description: generated obligation
+- id: r3
+  body:
+  - i12
+  conclusion: d3
+  type: r
+  stakeholder: School
+  description: generated obligation
+- id: r4
+  body:
+  - i4
+  conclusion: d4
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r5
+  body:
+  - i7
+  conclusion: d5
+  type: r
+  stakeholder: EthicsBoard
+  description: generated obligation
+- id: r6
+  body:
+  - i2
+  conclusion: d6
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r7
+  body:
+  - i12
+  conclusion: d7
+  type: r
+  stakeholder: Insurance
+  description: generated obligation
+- id: r8
+  body:
+  - i7
+  conclusion: d8
+  type: r
+  stakeholder: ChildProtection
+  description: generated obligation
+- id: r9
+  body:
+  - i4
+  conclusion: d9
+  type: r
+  stakeholder: Municipality
+  description: generated obligation
+- id: r10
+  body:
+  - i25
+  conclusion: d10
+  type: r
+  stakeholder: Municipality
+  description: generated obligation
+- id: r11
+  body:
+  - i9
+  conclusion: d11
+  type: r
+  stakeholder: Law
+  description: generated obligation
+- id: r12
+  body:
+  - i14
+  conclusion: d12
+  type: r
+  stakeholder: School
+  description: generated obligation
+- id: r13
+  body:
+  - i20
+  conclusion: d13
+  type: r
+  stakeholder: Municipality
+  description: generated obligation
+- id: r14
+  body:
+  - i3
+  conclusion: d14
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r15
+  body:
+  - i1
+  conclusion: d15
+  type: r
+  stakeholder: Municipality
+  description: generated obligation
+- id: r16
+  body:
+  - i17
+  conclusion: d16
+  type: r
+  stakeholder: EthicsBoard
+  description: generated obligation
+- id: r17
+  body:
+  - i1
+  conclusion: d17
+  type: r
+  stakeholder: RoboticsAuthority
+  description: generated obligation
+- id: r18
+  body:
+  - i5
+  conclusion: d18
+  type: r
+  stakeholder: School
+  description: generated obligation
+- id: r19
+  body:
+  - i15
+  conclusion: d19
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r20
+  body:
+  - i12
+  conclusion: d20
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r21
+  body:
+  - i10
+  conclusion: d21
+  type: r
+  stakeholder: RoboticsAuthority
+  description: generated obligation
+- id: r22
+  body:
+  - i21
+  conclusion: d22
+  type: r
+  stakeholder: EthicsBoard
+  description: generated obligation
+- id: r23
+  body:
+  - i12
+  conclusion: d23
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r24
+  body:
+  - i24
+  conclusion: d24
+  type: r
+  stakeholder: ChildProtection
+  description: generated obligation
+- id: r25
+  body:
+  - i6
+  conclusion: d25
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r26
+  body:
+  - i9
+  conclusion: d26
+  type: r
+  stakeholder: Municipality
+  description: generated obligation
+- id: r27
+  body:
+  - i3
+  conclusion: d27
+  type: r
+  stakeholder: Insurance
+  description: generated obligation
+- id: r28
+  body:
+  - i18
+  conclusion: d28
+  type: r
+  stakeholder: EthicsBoard
+  description: generated obligation
+- id: r29
+  body:
+  - i5
+  conclusion: d29
+  type: r
+  stakeholder: Family
+  description: generated obligation
+- id: r30
+  body:
+  - i5
+  conclusion: d30
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r31
+  body:
+  - i1
+  conclusion: d31
+  type: r
+  stakeholder: Family
+  description: generated obligation
+- id: r32
+  body:
+  - i5
+  conclusion: d32
+  type: r
+  stakeholder: Insurance
+  description: generated obligation
+- id: r33
+  body:
+  - i13
+  conclusion: d33
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r34
+  body:
+  - i17
+  conclusion: d34
+  type: r
+  stakeholder: Family
+  description: generated obligation
+- id: r35
+  body:
+  - i18
+  conclusion: d35
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r36
+  body:
+  - i10
+  conclusion: d36
+  type: r
+  stakeholder: Family
+  description: generated obligation
+- id: r37
+  body:
+  - i18
+  conclusion: d37
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r38
+  body:
+  - i20
+  conclusion: d38
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r39
+  body:
+  - i3
+  conclusion: d39
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r40
+  body:
+  - i1
+  conclusion: d40
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r41
+  body:
+  - i18
+  conclusion: d41
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r42
+  body:
+  - i11
+  conclusion: d42
+  type: r
+  stakeholder: RoboticsAuthority
+  description: generated obligation
+- id: r43
+  body:
+  - i10
+  conclusion: d43
+  type: r
+  stakeholder: RoboticsAuthority
+  description: generated obligation
+- id: r44
+  body:
+  - i22
+  conclusion: d44
+  type: r
+  stakeholder: Health
+  description: generated obligation
+- id: r45
+  body:
+  - i4
+  conclusion: d45
+  type: r
+  stakeholder: Insurance
+  description: generated obligation
+- id: r46
+  body:
+  - i19
+  conclusion: d46
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r47
+  body:
+  - i7
+  conclusion: d47
+  type: r
+  stakeholder: Family
+  description: generated obligation
+- id: r48
+  body:
+  - i7
+  conclusion: d48
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: r49
+  body:
+  - i8
+  conclusion: d49
+  type: r
+  stakeholder: Manufacturer
+  description: generated obligation
+- id: p51
+  body:
+  - i7
+  conclusion: d51
+  type: p
+  stakeholder: EthicsBoard
+  description: generated permission
+- id: p52
+  body:
+  - i19
+  conclusion: d52
+  type: p
+  stakeholder: ChildProtection
+  description: generated permission
+- id: p53
+  body:
+  - i18
+  conclusion: d53
+  type: p
+  stakeholder: RoboticsAuthority
+  description: generated permission
+- id: p54
+  body:
+  - i19
+  conclusion: d54
+  type: p
+  stakeholder: EthicsBoard
+  description: generated permission
+- id: p55
+  body:
+  - i24
+  conclusion: d55
+  type: p
+  stakeholder: RoboticsAuthority
+  description: generated permission
+- id: p56
+  body:
+  - i20
+  conclusion: d56
+  type: p
+  stakeholder: Municipality
+  description: generated permission
+- id: p57
+  body:
+  - i3
+  conclusion: d57
+  type: p
+  stakeholder: Insurance
+  description: generated permission
+- id: p58
+  body:
+  - i1
+  conclusion: d58
+  type: p
+  stakeholder: Health
+  description: generated permission
+- id: p59
+  body:
+  - i6
+  conclusion: d59
+  type: p
+  stakeholder: Manufacturer
+  description: generated permission
+- id: p60
+  body:
+  - i21
+  conclusion: d60
+  type: p
+  stakeholder: EthicsBoard
+  description: generated permission
+- id: p61
+  body:
+  - i22
+  conclusion: d61
+  type: p
+  stakeholder: Manufacturer
+  description: generated permission
+- id: p62
+  body:
+  - i20
+  conclusion: d62
+  type: p
+  stakeholder: Family
+  description: generated permission
+- id: p63
+  body:
+  - i14
+  conclusion: d63
+  type: p
+  stakeholder: School
+  description: generated permission
+- id: p64
+  body:
+  - i9
+  conclusion: d64
+  type: p
+  stakeholder: Insurance
+  description: generated permission
+- id: p65
+  body:
+  - i24
+  conclusion: d65
+  type: p
+  stakeholder: Law
+  description: generated permission
+- id: p66
+  body:
+  - i10
+  conclusion: d66
+  type: p
+  stakeholder: Manufacturer
+  description: generated permission
+- id: p67
+  body:
+  - i20
+  conclusion: d67
+  type: p
+  stakeholder: Municipality
+  description: generated permission
+- id: p68
+  body:
+  - i16
+  conclusion: d68
+  type: p
+  stakeholder: Family
+  description: generated permission
+- id: p69
+  body:
+  - i20
+  conclusion: d69
+  type: p
+  stakeholder: Family
+  description: generated permission
+- id: p70
+  body:
+  - i8
+  conclusion: d70
+  type: p
+  stakeholder: Insurance
+  description: generated permission
+- id: p71
+  body:
+  - i16
+  conclusion: d71
+  type: p
+  stakeholder: Health
+  description: generated permission
+- id: p72
+  body:
+  - i11
+  conclusion: d72
+  type: p
+  stakeholder: Municipality
+  description: generated permission
+- id: p73
+  body:
+  - i1
+  conclusion: d73
+  type: p
+  stakeholder: Family
+  description: generated permission
+- id: p74
+  body:
+  - i21
+  conclusion: d74
+  type: p
+  stakeholder: ChildProtection
+  description: generated permission
+- id: p75
+  body:
+  - i1
+  conclusion: d75
+  type: p
+  stakeholder: Health
+  description: generated permission
+- id: p76
+  body:
+  - i16
+  conclusion: d76
+  type: p
+  stakeholder: Municipality
+  description: generated permission
+- id: p77
+  body:
+  - i23
+  conclusion: d77
+  type: p
+  stakeholder: EthicsBoard
+  description: generated permission
+- id: p78
+  body:
+  - i16
+  conclusion: d78
+  type: p
+  stakeholder: Municipality
+  description: generated permission
+- id: p79
+  body:
+  - i13
+  conclusion: d79
+  type: p
+  stakeholder: Health
+  description: generated permission
+- id: p80
+  body:
+  - i12
+  conclusion: d80
+  type: p
+  stakeholder: Municipality
+  description: generated permission
+contrariness:
+  d1:
+    opposes:
+    - d60
+    - d1
+    - d23
+  d2:
+    opposes:
+    - d57
+    - d55
+    - d4
+  d3:
+    opposes:
+    - d79
+  d4:
+    opposes:
+    - d53
+  d5:
+    opposes:
+    - d14
+    - d38
+  d6:
+    opposes:
+    - d59
+    - d54
+  d7:
+    opposes:
+    - d66
+  d8:
+    opposes:
+    - d54
+    - d32
+    - d13
+  d9:
+    opposes:
+    - d58
+    - d19
+    - d22
+  d10:
+    opposes:
+    - d25
+    - d31
+  d11:
+    opposes:
+    - d56
+  d12:
+    opposes:
+    - d1
+    - d19
+  d13:
+    opposes:
+    - d29
+    - d14
+  d14:
+    opposes:
+    - d45
+    - d53
+    - d24
+  d15:
+    opposes:
+    - d46
+    - d45
+  d16:
+    opposes:
+    - d7
+    - d4
+  d17:
+    opposes:
+    - d43
+    - d20
+    - d11
+  d18:
+    opposes:
+    - d76
+    - d61
+  d19:
+    opposes:
+    - d74
+  d20:
+    opposes:
+    - d64
+    - d63
+  d21:
+    opposes:
+    - d68
+    - d32
+    - d4
+  d22:
+    opposes:
+    - d57
+    - d61
+    - d31
+  d23:
+    opposes:
+    - d51
+    - d60
+  d24:
+    opposes:
+    - d59
+    - d23
+    - d44
+  d25:
+    opposes:
+    - d3
+    - d59
+    - d63
+  d26:
+    opposes:
+    - d46
+  d27:
+    opposes:
+    - d58
+    - d11
+  d28:
+    opposes:
+    - d1
+    - d43
+    - d71
+  d29:
+    opposes:
+    - d26
+  d30:
+    opposes:
+    - d71
+  d31:
+    opposes:
+    - d79
+    - d36
+  d32:
+    opposes:
+    - d26
+    - d9
+  d33:
+    opposes:
+    - d64
+    - d77
+  d34:
+    opposes:
+    - d39
+  d35:
+    opposes:
+    - d43
+  d36:
+    opposes:
+    - d17
+    - d69
+  d37:
+    opposes:
+    - d22
+  d38:
+    opposes:
+    - d33
+  d39:
+    opposes:
+    - d8
+  d40:
+    opposes:
+    - d74
+  d41:
+    opposes:
+    - d12
+    - d24
+    - d39
+  d42:
+    opposes:
+    - d58
+    - d49
+    - d27
+  d43:
+    opposes:
+    - d4
+    - d23
+  d44:
+    opposes:
+    - d21
+  d45:
+    opposes:
+    - d72
+    - d22
+  d46:
+    opposes:
+    - d40
+    - d36
+    - d76
+  d47:
+    opposes:
+    - d72
+  d48:
+    opposes:
+    - d27
+  d49:
+    opposes:
+    - d63
+    - d28
+  d50:
+    opposes:
+    - d78
+    - d18
+    - d36
+  d51:
+    opposes:
+    - d7
+    - d77
+  d52:
+    opposes:
+    - d3
+    - d18
+  d53:
+    opposes:
+    - d9
+    - d30
+    - d57
+  d54:
+    opposes:
+    - d62
+    - d54
+  d55:
+    opposes:
+    - d79
+  d56:
+    opposes:
+    - d60
+  d57:
+    opposes:
+    - d15
+    - d12
+  d58:
+    opposes:
+    - d47
+    - d7
+  d59:
+    opposes:
+    - d6
+    - d43
+  d60:
+    opposes:
+    - d4
+    - d19
+  d61:
+    opposes:
+    - d45
+    - d2
+    - d31
+  d62:
+    opposes:
+    - d23
+    - d44
+  d63:
+    opposes:
+    - d30
+    - d25
+    - d56
+  d64:
+    opposes:
+    - d65
+    - d5
+    - d37
+  d65:
+    opposes:
+    - d58
+    - d39
+  d66:
+    opposes:
+    - d54
+    - d16
+    - d14
+  d67:
+    opposes:
+    - d4
+    - d42
+  d68:
+    opposes:
+    - d71
+    - d25
+  d69:
+    opposes:
+    - d62
+    - d35
+    - d47
+  d70:
+    opposes:
+    - d45
+    - d71
+  d71:
+    opposes:
+    - d77
+    - d9
+    - d40
+  d72:
+    opposes:
+    - d62
+  d73:
+    opposes:
+    - d23
+    - d76
+  d74:
+    opposes:
+    - d75
+  d75:
+    opposes:
+    - d1
+    - d64
+    - d30
+  d76:
+    opposes:
+    - d10
+    - d53
+  d77:
+    opposes:
+    - d4
+  d78:
+    opposes:
+    - d29
+    - d67
+  d79:
+    opposes:
+    - d14
+    - d30
+    - d63
+priorities: {}
