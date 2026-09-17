@@ -3,12 +3,6 @@ name: Deploy Doxygen docs to GitHub Pages
 on:
   push:
     branches: [main]
-    paths:
-      - "jiminy/**"
-      - "cli/**"
-      - "tui/**"
-      - "Doxyfile"
-      - "docs/mainpage.dox"
   workflow_dispatch:
 
 # Allow a job to write to Pages and get an id-token for deployment.
