@@ -1240,6 +1240,83 @@ class Jiminy:
         return "\n".join(lines)
 
 
+    # ----------------------------------------------------------------------
+    # CAUSAL EXPLANATION
+    # ----------------------------------------------------------------------
+    def _causal_chain(self, atom):
+        """
+        Reconstruct the causal derivation chain that produces `atom`.
+
+        Brute facts stop the chain; institutional facts are traced back to the
+        constitutive rule that produced them.
+
+        @param atom  a conclusion identifier.
+        @return  a human-readable causal string.
+        """
+        desc = self.context_desc.get(atom) or self.norm_desc.get(atom) or ""
+        producing = [n for n in self.norms if n.head == atom]
+        if not producing:
+            return f"{atom} ({desc})"
+
+        n = producing[0]
+        sub = ", ".join(self._causal_chain(b) for b in n.body)
+        kind = {"c": "institutional fact", "r": "obligation", "p": "permission"}[n.tau]
+        return (
+            f"{atom} ({desc}) = {kind} derived by rule {n.id} "
+            f"({n.stakeholder}) from [{sub}]"
+        )
+
+    def explain_causal(self, accepted, rejected, context, semantics="jiminy"):
+        """
+        Produce a CAUSAL explanation of every active action.
+
+        For each accepted deontic action it traces the chain of motivating facts,
+        institutional facts, the rule and the issuing stakeholder; for each rejected
+        action it explains why (conflict with an active conclusion, or not selected).
+
+        @param accepted    list of accepted `Argument`.
+        @param rejected    list of rejected `Argument`.
+        @param context     the brute facts.
+        @param semantics   semantics label (for the header only).
+        @return  a human-readable causal explanation string.
+        """
+        sep = "-" * 60
+        lines = [f"CAUSAL EXPLANATION ({semantics})", sep]
+
+        by_head = {}
+        for a in accepted:
+            by_head.setdefault(a.hd, []).append(a)
+
+        accepted_heads = {a.hd for a in accepted}
+        rejected_heads = {a.hd for a in rejected}
+
+        lines.append("\nACTIVE ACTIONS AND WHY THEY ARE MOTIVATED")
+        for head in sorted(h for h in accepted_heads if not h.startswith("i")):
+            args = by_head.get(head, [])
+            if not args:
+                continue
+            a = args[0]
+            n = a.origin_norm
+            kind = "obligation" if n.tau == "r" else "permission"
+            motiv = ", ".join(self._causal_chain(b) for b in n.body)
+            lines.append(f"\n* {head} ({kind}, rule {n.id}, stakeholder {n.stakeholder})")
+            lines.append(f"  rule: {tuple(n.body)} =>^{n.tau}_{n.stakeholder} {head}")
+            lines.append(f"  why: because {motiv}")
+
+        lines.append(f"\nREJECTED ACTIONS AND WHY")
+        for head in sorted(h for h in rejected_heads if not h.startswith("i")):
+            conflicts = sorted(
+                h for h in accepted_heads if h in self.contrary(head)
+            )
+            if conflicts:
+                reason = f"its conclusion conflicts with the active conclusion(s) {conflicts}"
+            else:
+                reason = "it was not selected (filtered out or lower stakeholder authority)"
+            lines.append(f"\n* {head}: rejected -> {reason}.")
+
+        return "\n".join(lines)
+
+
     def compute_jiminy_no_priority(self, context):
         """
         Implementation of Jiminy two-phase semantics WITHOUT priorities,
