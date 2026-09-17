@@ -1,3 +1,5 @@
+## @file visualizer.py
+## @brief Helper visualizer for Jiminy argumentation graphs.
 from graphviz import Digraph
 import colorsys
 

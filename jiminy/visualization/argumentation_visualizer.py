@@ -1,3 +1,5 @@
+## @file argumentation_visualizer.py
+## @brief Graphviz visualizer for normative argumentation graphs (JAIR style).
 """
 Argumentation Visualizer
 ========================
@@ -94,11 +96,10 @@ class ArgumentationVisualizer:
         """
         Build the internal Graphviz Digraph.
 
-        Parameters:
-            arguments    — list[Argument]
-            winners      — set of accepted heads
-            priorities   — dict(head → numeric priority)
-            contrariness — dict(head → set(head))
+        @param arguments    list of `Argument`.
+        @param winners      set of accepted heads (double border).
+        @param priorities   dict mapping head -> numeric priority (drives defeats).
+        @param contrariness dict mapping head -> set of contrary heads (drives attacks).
         """
         self.graph = Digraph("argumentation", format="png")
         self.graph.attr(rankdir="LR", fontsize="12")
@@ -220,10 +221,12 @@ class ArgumentationVisualizer:
     # ------------------------------------------------------------------
     def render(self, filename="argumentation_graph"):
         """
-        Renders the graph to disk.
-        Example:
-            viz.render("agrobot3")
+        Render the graph to disk (a PNG next to the given filename).
+
+        @param filename  output base name (without extension).
+        @return  the rendered PNG path.
         """
         print(f"[Visualizer] Rendering graph → {filename}.png")
         self.graph.render(filename, cleanup=True)
+        return f"{filename}.png"
 
