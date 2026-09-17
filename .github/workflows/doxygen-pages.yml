@@ -1,0 +1,58 @@
+name: Deploy Doxygen docs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "jiminy/**"
+      - "cli/**"
+      - "tui/**"
+      - "Doxyfile"
+      - "docs/mainpage.dox"
+  workflow_dispatch:
+
+# Allow a job to write to Pages and get an id-token for deployment.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Do not allow two deployments to race.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install doxygen and graphviz
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Generate Doxygen documentation
+        run: doxygen Doxyfile
+
+      - name: Disable Jekyll processing for Pages
+        run: touch doxygen/html/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: doxygen/html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -109,13 +109,23 @@ python -m pytest
 ## 7. Documentation (Doxygen)
 
 The Python API is documented with Doxygen-style docstrings. To regenerate the HTML
-documentation:
+documentation locally:
 
 ```bash
 doxygen Doxyfile      # output goes to doxygen/html/index.html
 ```
 
 The generated `doxygen/` folder is git-ignored.
+
+### Automated publishing to GitHub Pages
+
+The workflow `.github/workflows/doxygen-pages.yml` builds the documentation with Doxygen
+and deploys it to **GitHub Pages** on every push to `main` (and on manual dispatch).
+
+One-time setup (repo settings): **Settings -> Pages -> Source = "GitHub Actions"**.
+
+After that, each push regenerates and publishes the docs; the site URL is shown in the
+deployment run of the `Deploy Doxygen docs to GitHub Pages` workflow.
 
 ## 8. Repository layout
 
