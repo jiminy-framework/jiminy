@@ -1,0 +1,39 @@
+/**
+@mainpage Jiminy Engine
+
+A Python implementation of the **Jiminy Advisor**, a normative reasoning and
+argumentation framework for **multi-stakeholder decision making**. Jiminy turns context
+facts and normative rules into *explainable moral recommendations* by combining normative
+systems, formal argumentation, stakeholder preferences and context-dependent reasoning.
+
+@author Francisco J. Rodríguez-Lera (University of León)
+@version 1.0
+
+## Pipeline
+
+```
+Context Facts
+  -> YAML Scenario Loader
+  -> Norm Representation (body -> head, type, stakeholder)
+  -> Argument Generation (normative detachment)
+  -> Argumentation Framework (arguments + attacks)
+  -> Semantics Evaluation (naive / grounded / preferred / stable / priority / jiminy)
+  -> Accepted Arguments
+  -> Moral Recommendations (deontic actions)
+  -> Narrative Explanation
+```
+
+## Modules
+
+- `jiminy/engine.py` — the `Jiminy` engine (semantics).
+- `jiminy/norms.py` — the `Norm` rule representation.
+- `jiminy/arguments.py` — the `Argument` representation.
+- `jiminy/yaml_loader.py` — scenario loading.
+- `jiminy/visualization/` — Graphviz visualizers.
+
+## Reference
+
+> Liao, B., Pardo, P., Slavkovik, M., & van der Torre, L. (2023).
+> *The Jiminy Advisor: Moral Agreements among Stakeholders Based on Norms and Argumentation*.
+> Journal of Artificial Intelligence Research (JAIR).
+*/

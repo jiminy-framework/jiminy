@@ -1,4 +1,6 @@
 # norms.py
+## @file norms.py
+## @brief Representation of a normative rule.
 
 class Norm:
     """
@@ -12,6 +14,13 @@ class Norm:
         - id = unique norm identifier (e.g. "H2")
     """
     def __init__(self, body, head, tau, stakeholder, norm_id=None):
+        """
+        @param body        iterable of premises (turned into a tuple).
+        @param head        conclusion psi.
+        @param tau         norm type: 'c' (constitutive), 'r' (regulative), 'p' (permissive).
+        @param stakeholder the issuing stakeholder identifier.
+        @param norm_id     optional unique norm identifier.
+        """
         self.body = tuple(body)
         self.head = head
         self.tau = tau
@@ -20,6 +29,9 @@ class Norm:
 
     @property
     def type(self):
+        """
+        Return the norm type (alias of `tau`).
+        """
         return self.tau
 
     def __repr__(self):

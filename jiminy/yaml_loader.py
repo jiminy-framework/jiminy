@@ -1,8 +1,21 @@
 import yaml
 from .norms import Norm
 
+## @file yaml_loader.py
+## @brief Loads a YAML scenario into the internal Jiminy structures.
+
 
 def load_scenario(path):
+    """
+    Parse a YAML scenario file.
+
+    Reads the `context`, `norms`, `contrariness`, `priorities`, `base_priorities` and
+    `meta_priorities` sections and returns the data needed to build a `Jiminy` engine.
+
+    @param path  path to the `.yaml` scenario file.
+    @return  tuple (possible_facts, norms, contrariness, priorities, context_desc,
+             norm_desc, contrariness_desc, priority_desc, base_priorities, meta_priorities).
+    """
 
     with open(path, "r") as f:
         data = yaml.safe_load(f)

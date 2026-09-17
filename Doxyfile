@@ -1,0 +1,53 @@
+# Doxyfile for the Jiminy Engine (Python) documentation
+PROJECT_NAME           = "Jiminy Engine"
+PROJECT_BRIEF          = "Normative reasoning and argumentation for multi-stakeholder decision making"
+PROJECT_LOGO           =
+OUTPUT_DIRECTORY       = doxygen
+CREATE_SUBDIRS         = NO
+ALLOW_UNICODE_NAMES    = YES
+
+# Input (Python sources) and language mapping
+INPUT                  = jiminy cli tui docs/mainpage.dox
+FILE_PATTERNS          = *.py *.dox
+RECURSIVE              = YES
+EXCLUDE                = __pycache__
+EXTENSION_MAPPING      = py=Python
+
+# Extraction settings
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_PRIV_VIRTUAL   = NO
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = NO
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+# Source browsing
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+VERBATIM_HEADERS       = NO
+
+# HTML output
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+
+# LaTeX/PDF (off)
+GENERATE_LATEX         = NO
+
+# Graphviz diagrams
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+
+# Warnings
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES

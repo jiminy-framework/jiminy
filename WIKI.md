@@ -106,7 +106,18 @@ source venv/bin/activate
 python -m pytest
 ```
 
-## 7. Repository layout
+## 7. Documentation (Doxygen)
+
+The Python API is documented with Doxygen-style docstrings. To regenerate the HTML
+documentation:
+
+```bash
+doxygen Doxyfile      # output goes to doxygen/html/index.html
+```
+
+The generated `doxygen/` folder is git-ignored.
+
+## 8. Repository layout
 
 ```
 jiminy/         core engine (engine.py, norms.py, arguments.py, yaml_loader.py, visualization/)

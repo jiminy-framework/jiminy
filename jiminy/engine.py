@@ -1,7 +1,9 @@
+## @file engine.py
+## @brief Jiminy reasoning engine: normative argumentation semantics.
+
 from matplotlib import lines
 from .arguments import Argument
 from .norms import Norm
-
 import logging
 logging.basicConfig(
     level=logging.CRITICAL,              # Show DEBUG and above
@@ -44,6 +46,20 @@ class Jiminy:
         base_priorities=None,
         meta_priorities=None
     ):
+        """
+        Build a Jiminy reasoning engine from a loaded scenario.
+
+        @param norms            list of `Norm` rules.
+        @param contrariness     dict mapping a conclusion to the set of its contraries (chi).
+        @param priorities       dict mapping a conclusion to its numeric priority (priority semantics).
+        @param context_desc     dict mapping a fact id to its textual description.
+        @param norm_desc        dict mapping a norm conclusion to its description.
+        @param contrariness_desc dict mapping a conclusion to its contrariety description.
+        @param priority_desc    dict mapping a conclusion to its priority description.
+        @param base_priorities  dict mapping a stakeholder to its default authority.
+        @param meta_priorities  list of context-dependent authority escalation rules
+                                ({'if', 'stakeholder', 'value'}).
+        """
 
         self.norms = norms
         self.contrariness = contrariness or {}
@@ -65,6 +81,12 @@ class Jiminy:
     #   Used to define the attack relation.
     # ----------------------------------------------------------------------
     def contrary(self, x):
+        """
+        Return the set of conclusions contrary to `x` (the contrariness function chi).
+
+        @param x  a conclusion.
+        @return  set(elements) with `set()` if none.
+        """
         return self.contrariness.get(x, set())
 
 
@@ -111,6 +133,16 @@ class Jiminy:
     # activate correctly.
     # ----------------------------------------------------------------------
     def generate_arguments(self, context):
+        """
+        Generate the normative arguments from a context via detachment.
+
+        Constitutive rules (tau='c') are fired to a fixpoint so that they expand the
+        context with institutional facts; then regulative (tau='r') and permissive
+        (tau='p') rules are applied to produce obligation/permission arguments.
+
+        @param context  iterable of brute facts (e.g. ['w1', 'w4']).
+        @return  list of `Argument` objects.
+        """
         context = set(context)   # copy to avoid modifying external reference
         args = []
         changed = True
@@ -153,6 +185,13 @@ class Jiminy:
     # argumentation frameworks extended with contrariety-based conflicts.
     # ----------------------------------------------------------------------
     def attacks(self, A, B):
+        """
+        True if argument `A` attacks argument `B` (hd(B) in chi(hd(A))).
+
+        @param A  an `Argument`.
+        @param B  an `Argument`.
+        @return  bool.
+        """
         return B.hd in self.contrary(A.hd)
 
 
@@ -196,12 +235,12 @@ class Jiminy:
     # ----------------------------------------------------------------------
     def compute_extension(self, X, semantics="priority"):
         """
-        semantics:
-            - "priority"  → B2 Jiminy semantics
-            - "grounded"  → Dung grounded
-            - "preferred" → Dung preferred
-            - "stable"    → Dung stable
-            - "naive"     → NEW: two-phase naive semantics
+        Compute an extension (accepted/rejected arguments) under a semantics.
+
+        @param X          iterable of arguments (or the context for 'naive').
+        @param semantics  one of 'priority', 'grounded', 'preferred', 'stable',
+                          'preferred_head' or 'naive'.
+        @return  (accepted, rejected) lists of `Argument`.
         """
 
         print(">>> Semantics received:", repr(semantics))
@@ -1292,6 +1331,9 @@ class Jiminy:
     def contrary_set(self, facts):
         """
         Returns the set of all contraries of the given facts.
+
+        @param facts  iterable of conclusions.
+        @return  set of conclusions that are contrary to any of `facts`.
         """
         out = set()
 
@@ -1302,7 +1344,14 @@ class Jiminy:
     
     def compute_jiminy(self, context):
         """
-        Jiminy reasoning procedure exactly as described in the paper.
+        Classical two-phase Jiminy (JAIR) reasoning procedure.
+
+        Phase 1 computes the institutional closure of constitutive rules; phase 1.5
+        derives stakeholder authority from `base_priorities` and `meta_priorities`;
+        phase 2 selects permissions and obligations greedily by authority.
+
+        @param context  iterable of brute facts.
+        @return  tuple (E, P, O) of institutional facts, permissions and obligations.
         """
         return self._compute_jiminy(context, bidirectional=False)
 
@@ -1315,12 +1364,19 @@ class Jiminy:
         guarantees that whenever there is an attack between an active conclusion and a
         candidate obligation, there is a single winner (the attacking obligation is
         dropped in favour of the active conclusion).
+
+        @param context  iterable of brute facts.
+        @return  tuple (E, P, O) of institutional facts, permissions and obligations.
         """
         return self._compute_jiminy(context, bidirectional=True)
 
     def _compute_jiminy(self, context, bidirectional=False):
         """
-        Jiminy reasoning procedure exactly as described in the paper.
+        Two-phase Jiminy reasoning core.
+
+        @param context       iterable of brute facts.
+        @param bidirectional if True apply the bidirectional contrariety filter.
+        @return  tuple (E, P, O).
         """
 
         # -------------------------------------------------
