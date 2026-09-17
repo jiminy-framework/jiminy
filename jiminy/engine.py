@@ -4,7 +4,7 @@ from .norms import Norm
 
 import logging
 logging.basicConfig(
-    level=logging.CRITICAL,              # Mostrar DEBUG y superiores
+    level=logging.CRITICAL,              # Show DEBUG and above
     format="%(levelname)s: %(message)s"
 )
 logger = logging.getLogger(__name__)
@@ -31,25 +31,6 @@ class Jiminy:
       • Prioritized extension  → Conflict resolution with preference ordering ≻
       • Explanation            → Transparency layer (not part of formal semantics)
     """
-
-    def __init_bis__(self, norms, contrariness, priorities,
-                 context_desc=None, norm_desc=None,
-                 contrariness_desc=None, priority_desc=None):
-
-        self.norms = norms
-        
-        # χ : Conclusion → Set(Conclusion)
-        # (Definition: contrariety function)
-        self.contrariness = contrariness
-
-        # ≻ : Priority ordering over conclusions
-        self.priorities = priorities
-
-        # Debug dictionaries (not part of formal model)
-        self.context_desc = context_desc or {}
-        self.norm_desc = norm_desc or {}
-        self.contrariness_desc = contrariness_desc or {}
-        self.priority_desc = priority_desc or {}
 
     def __init__(
         self,
@@ -967,9 +948,9 @@ class Jiminy:
     # ----------------------------------------------------------------------
     def explain(self, accepted, rejected, context, generated_arguments=None, debug=False, semantics="priority"):
 
-        # Detectar semántica naive (el lanzador NO nos la pasa explícita)
-        # La inferimos: si todos los aceptados son c/r/p pero NO usamos prioridades → naive
-        # Más seguro: fijado desde launcher usando un atributo opcional.
+        # Detect naive semantics (the launcher does NOT pass it explicitly)
+        # We infer it: if all accepted are c/r/p but we don't use priorities → naive
+        # Safer: set by the launcher using an optional attribute.
         is_naive = (semantics == "naive")
 
         lines = []
@@ -1122,13 +1103,13 @@ class Jiminy:
         if debug:
             lines.append("\nNARRATIVE EXPLANATION\n" + sep)
 
-            # Hechos en lenguaje natural
+            # Facts in natural language
             facts_text = ", ".join(
                 f"{w} ({self.context_desc.get(w, 'no description')})"
                 for w in sorted(context)
             )
 
-            # Acciones aceptadas
+            # Accepted actions
             # Only moral actions (exclude institutional facts)
             accepted_actions = ", ".join(
                 sorted({A.hd for A in accepted if not A.hd.startswith("i")})
@@ -1323,6 +1304,24 @@ class Jiminy:
         """
         Jiminy reasoning procedure exactly as described in the paper.
         """
+        return self._compute_jiminy(context, bidirectional=False)
+
+    def compute_jiminy_bidirectional(self, context):
+        """
+        Jiminy reasoning with a BIDIRECTIONAL contrariety filter.
+
+        In addition to skipping a regulative rule whose head is already attacked by an
+        active element, it also skips a rule whose head ATTACKS an active element. This
+        guarantees that whenever there is an attack between an active conclusion and a
+        candidate obligation, there is a single winner (the attacking obligation is
+        dropped in favour of the active conclusion).
+        """
+        return self._compute_jiminy(context, bidirectional=True)
+
+    def _compute_jiminy(self, context, bidirectional=False):
+        """
+        Jiminy reasoning procedure exactly as described in the paper.
+        """
 
         # -------------------------------------------------
         # PHASE 1 — Institutional closure
@@ -1398,13 +1397,19 @@ class Jiminy:
                 if norm.head in self.contrary_set(E | P | O):
                     continue
 
+                if bidirectional:
+                    # Also drop a rule whose head ATTACKS an active element,
+                    # so that every attack resolves to a single winner.
+                    if set(self.contrary(norm.head)) & (E | P | O):
+                        continue
+
                 candidates.append(norm)
 
             if not candidates:
                 break
 
             # select maximal rule according to stakeholder priority
-            # tie-break estable:
+            # stable tie-break:
             best = max(
                 candidates,
                 key=lambda n: (

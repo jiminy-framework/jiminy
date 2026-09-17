@@ -2,7 +2,7 @@
 
 class Argument:
     """
-    Argumento construido mediante detachment.
+    Argument built via detachment.
     """
     def __init__(self, premises, conclusion, origin_norm):
         self.bd = tuple(premises)

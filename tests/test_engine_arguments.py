@@ -12,10 +12,10 @@ def test_argument_closure():
     jim = Jiminy(norms, {}, {}, {}, {}, {}, {})
     args = jim.generate_arguments(context)
 
-    # Hecho institucional i1 debe aparecer
+    # Institutional fact i1 must appear
     assert any(a.hd == "i1" for a in args)
 
-    # Acción d1 también debe generarse porque i1 se añade por clausura
+    # Action d1 must also be generated because i1 is added by closure
     assert any(a.hd == "d1" for a in args)
 
 
@@ -33,7 +33,7 @@ def test_priority_defeat():
     args = jim.generate_arguments(context)
     accepted, rejected = jim.compute_extension(args)
 
-    # Solo d1 debe sobrevivir
+    # Only d1 must survive
     assert any(a.hd == "d1" for a in accepted)
     assert not any(a.hd == "d2" for a in accepted)
     assert any(a.hd == "d2" for a in rejected)

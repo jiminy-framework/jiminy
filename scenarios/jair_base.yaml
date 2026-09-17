@@ -128,7 +128,7 @@ norms:
   - id: r5
     body: [i_threat]
     conclusion: d_collect_no_consent
-    type: r
+    type: p
     stakeholder: Manuf
     description: manufacturer may collect data without consent under threat
 

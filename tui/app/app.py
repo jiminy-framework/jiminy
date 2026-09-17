@@ -93,7 +93,7 @@ class JiminyTUI(App):
             semantics=self.current_semantics
         )
 
-        # Dung graph se genera después con tecla D, no ahora.
+        # Dung graph is generated later with the D key, not now.
         ascii_dung = None
 
         self.post_message(
@@ -115,7 +115,7 @@ class JiminyTUI(App):
     # ----------------------------------------------------------------------
     async def action_graph_png(self):
 
-        # Usamos los últimos resultados sin sobreescribir nada
+        # We use the last results without overwriting anything
         accepted = self.controller.last_accepted
         rejected = self.controller.last_rejected
         args = self.controller.last_args
@@ -124,7 +124,7 @@ class JiminyTUI(App):
         graph_path = self.controller.last_graph_path
         args_desc = self.controller.last_args_description
 
-        # No generamos ASCII Dung aquí
+        # We don't generate ASCII Dung here
         ascii_dung = None
 
         self.post_message(
@@ -227,7 +227,7 @@ class JiminyTUI(App):
         if not args:
             storyboard = "(No arguments available)"
         else:
-            # reconstruir ataques (igual que en Dung ASCII)
+            # rebuild attacks (same as in Dung ASCII)
             attacks = []
             for a in args:
                 for b in args:
@@ -252,7 +252,7 @@ class JiminyTUI(App):
                 actions=self.controller.last_actions,
                 graph_path=self.controller.last_graph_path,
                 args_description=self.controller.last_args_description,
-                ascii_graph=storyboard,   # 👈 reutilizamos el panel magenta
+                ascii_graph=storyboard,   # 👈 reuse the magenta panel
             )
         )
 

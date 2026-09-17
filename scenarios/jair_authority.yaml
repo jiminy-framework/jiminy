@@ -1,0 +1,105 @@
+# -------------------------------------------------------------------------
+# Jiminy scenario — Stakeholder authority demo (classic JAIR)
+# Uses the same three stakeholders as the rest of the examples (Law,
+# Household, Manuf) and demonstrates that base_priorities / meta_priorities
+# decide a direct regulative-vs-regulative conflict, because the two
+# obligations are contrary to each other and no permission absorbs the conflict.
+# -------------------------------------------------------------------------
+
+semantics: jiminy
+
+description: "Demonstrates how the authority of Law, Household and Manuf resolves a direct conflict between two contrary obligations."
+
+context:
+  - id: w1
+    description: "The smart speaker is operational."
+
+  - id: w2
+    description: "A risky situation is detected."
+
+
+# ========================================================================
+# BASE PRIORITIES (default stakeholder authority)
+# ========================================================================
+base_priorities:
+
+  Law: 5
+  Household: 2
+  Manuf: 1
+
+
+# ========================================================================
+# META PRIORITIES (context-dependent authority)
+# ========================================================================
+meta_priorities:
+
+  - if: i_risk
+    stakeholder: Household
+    value: 10
+    description: when a risk is detected, household authority escalates to the highest level
+
+
+# ========================================================================
+# NORMATIVE RULES
+# ========================================================================
+norms:
+
+  # ------------------------------------------------------
+  # CONSTITUTIVE RULES
+  # ------------------------------------------------------
+
+  - id: c1
+    body: ["w2"]
+    conclusion: "i_risk"
+    type: "c"
+    stakeholder: "Law"
+    description: "A detected risky situation counts as an active risk."
+
+  # ------------------------------------------------------
+  # CONFLICTING REGULATIVE RULES
+  # ------------------------------------------------------
+
+  - id: r1
+    body: ["i_risk", "w1"]
+    conclusion: "d_disclose"
+    type: "r"
+    stakeholder: "Law"
+    description: "Under an active risk, the system is obliged to disclose it to the authorities."
+
+  - id: r2
+    body: ["i_risk", "w1"]
+    conclusion: "d_quiet"
+    type: "r"
+    stakeholder: "Household"
+    description: "Under an active risk, the system is obliged to protect the user's privacy and stay quiet."
+
+  # ------------------------------------------------------
+  # PERMISSION (Manuf) — non-conflicting
+  # ------------------------------------------------------
+
+  - id: r3
+    body: ["i_risk"]
+    conclusion: "p_monitor"
+    type: "p"
+    stakeholder: "Manuf"
+    description: "Under an active risk, the manufacturer may keep monitoring the situation."
+
+
+# ========================================================================
+# CONTRARIETIES (direct conflict between the two obligations)
+# ========================================================================
+contrariness:
+
+  d_disclose:
+    description: "Disclosing conflicts with staying quiet."
+    opposes: ["d_quiet"]
+
+  d_quiet:
+    description: "Staying quiet conflicts with disclosing."
+    opposes: ["d_disclose"]
+
+
+# ========================================================================
+# PRIORITIES (unused in jiminy semantics but required)
+# ========================================================================
+priorities: {}

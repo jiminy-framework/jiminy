@@ -36,11 +36,11 @@ class FactsPanel(Static):
 class ArgumentationPanel(Static):
 
     def on_show_evaluation(self, msg: ShowEvaluation):
-        # ← PREVENCIÓN DEL ERROR QUE VACÍA TODO
+        # ← PREVENTS THE ERROR THAT EMPTIES EVERYTHING
         args_desc = getattr(msg, "args_description", {}) or {}
 
         def fmt(a):
-            d = args_desc.get(a.hd, "(sin descripción)")
+            d = args_desc.get(a.hd, "(no description)")
             return f"- [b]{a.hd}[/b] — {d}"
 
         accepted = "\n".join(fmt(a) for a in msg.accepted) or "(none)"
@@ -70,7 +70,7 @@ class ActionsPanel(Static):
 # ------------------------------------------------------------------------------
 class NarrativePanel(VerticalScroll):
     """
-    Panel scrollable para la narrativa explicativa.
+    Scrollable panel for the explanatory narrative.
     """
 
     def on_mount(self):
@@ -94,7 +94,7 @@ class NarrativePanel(VerticalScroll):
 class GraphPanel(Static):
 
     def on_show_evaluation(self, msg: ShowEvaluation):
-        # Dung ASCII tiene prioridad si está presente
+        # Dung ASCII takes priority if present
         self.update_graph(msg.graph_path)
 
     def update_graph(self, path):
@@ -129,11 +129,11 @@ class GraphPanel(Static):
 
 class DungGraphPanel(VerticalScroll):
     """
-    Panel scrollable que muestra el Dung AF en ASCII.
+    Scrollable panel that shows the Dung AF in ASCII.
     """
 
     def on_mount(self):
-        # Widget interno donde realmente se pinta el texto
+        # Internal widget where the text is actually drawn
         self.content = Static("(press 'd' to generate Dung AF ascii graph)")
         self.mount(self.content)
 

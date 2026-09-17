@@ -312,7 +312,7 @@ def export_graphviz(path):
     g.attr(splines="true")
     g.attr(splines="spline")
 
-    # Layout general
+    # General layout
     g.attr(rankdir="TB")
     g.attr(ranksep="1.5")
     g.attr(nodesep="1.0")
@@ -386,7 +386,7 @@ def export_graphviz(path):
 
             if jim.attacks(A, B):
 
-                # ganador -> perdedor
+                # winner -> loser
                 if A.hd in winners and B.hd not in winners:
 
                     g.edge(
@@ -398,7 +398,7 @@ def export_graphviz(path):
                         arrowsize="1.2"
                     )
 
-                # ataque que no gana
+                # attack that does not win
                 else:
 
                     g.edge(

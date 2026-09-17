@@ -19,13 +19,13 @@ def build_engine(norms, contrariness, priorities=None):
 
 def run_semantics(jim, context, semantics):
     if semantics == "naive":
-        # naive recibe contexto, no argumentos
+        # naive receives context, not arguments
         accepted, rejected = jim.compute_extension(context, semantics="naive")
-        # Generamos argumentos finales solo para devolver algo compatible
+        # We generate final arguments only to return something compatible
         args = jim.generate_arguments(context)
         return args, accepted, rejected
 
-    # resto de semánticas funcionan igual
+    # the rest of the semantics work the same
     args = jim.generate_arguments(context)
     accepted, rejected = jim.compute_extension(args, semantics=semantics)
     return args, accepted, rejected
@@ -166,7 +166,7 @@ def test_stable_blocks_symmetric_cycles():
     ]
     contrariness = {
         "A": {"B"},
-        "B": {"A"}  # simétrico
+        "B": {"A"}  # symmetric
     }
     jim = build_engine(norms, contrariness)
 
@@ -182,8 +182,8 @@ def test_stable_allows_asymmetric_cycles():
         Norm(("w",), "B", "r", "X")
     ]
     contrariness = {
-        "A": {"B"},  # A ataca a B
-        "B": set()   # pero B no ataca a A
+        "A": {"B"},  # A attacks B
+        "B": set()   # but B does not attack A
     }
     jim = build_engine(norms, contrariness)
 

@@ -11,6 +11,11 @@ __pycache__/
 *.png
 *.svg
 *.dot
+# ...but keep the documentation figures in docs/
+!docs/*.png
+
+# Local draft documentation (not versioned for now)
+docs/jair_base_explicacion.md
 
 # OS
 .DS_Store

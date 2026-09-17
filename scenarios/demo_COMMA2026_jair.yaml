@@ -1,11 +1,17 @@
+# -------------------------------------------------------------------------
+# Jiminy scenario — demo_COMMA2026_jair
+# Classic JAIR (Jiminy Advisor) demo for COMMA 2026.
+# Same three stakeholders as the rest of the examples: Law, Household, Manuf.
+# Contrariety is declared symmetrically (mutual attacks).
+# -------------------------------------------------------------------------
+
 semantics: jiminy
 
-description: "Smart speaker scenario with GDPR vs threat detection — Jiminy-consistent version"
+description: "Jiminy Advisor demo (COMMA 2026) - smart speaker dilemma with Law, Household and Manuf stakeholders."
 
 # =========================================================
 # CONTEXT (Brute facts)
 # =========================================================
-
 context:
 
   - id: w1
@@ -24,18 +30,16 @@ context:
 # =========================================================
 # BASE PRIORITIES (default stakeholder authority)
 # =========================================================
-
 base_priorities:
 
-  Law: 1
-  Household: 1
+  Law: 5
+  Household: 2
   Manuf: 1
 
 
 # =========================================================
 # META PRIORITIES (context-dependent authority)
 # =========================================================
-
 meta_priorities:
 
   - if: i_collects_data
@@ -57,12 +61,11 @@ meta_priorities:
 # =========================================================
 # NORMS
 # =========================================================
-
 norms:
 
-# ---------------------------------------------------------
-# Constitutive norms (R^c)
-# ---------------------------------------------------------
+  # ---------------------------------------------------------
+  # Constitutive norms
+  # ---------------------------------------------------------
 
   - id: c1
     body: [w4]
@@ -92,10 +95,9 @@ norms:
     stakeholder: Household
     description: data collection implies a privacy-sensitive context
 
-
-# ---------------------------------------------------------
-# Regulative norms (R^r)
-# ---------------------------------------------------------
+  # ---------------------------------------------------------
+  # Regulative norms
+  # ---------------------------------------------------------
 
   - id: r1
     body: [w1]
@@ -125,6 +127,10 @@ norms:
     stakeholder: Household
     description: potential threats should be reported
 
+  # ---------------------------------------------------------
+  # Permissive norm
+  # ---------------------------------------------------------
+
   - id: r5
     body: [i_threat]
     conclusion: d_collect_no_consent
@@ -133,42 +139,28 @@ norms:
     description: manufacturer may collect data without consent under threat
 
 
-# ---------------------------------------------------------
-# Permissions (R^p)
-# ---------------------------------------------------------
-
-# (none needed for this minimal scenario)
-
-
 # =========================================================
-# CONTRARIENESS (χ)
+# CONTRARIENESS (symmetric, mutual attacks)
 # =========================================================
-
 contrariness:
 
   d_gdpr:
     opposes: [d_collect_no_consent]
-    description: GDPR compliance forbids data collection without consent
 
   d_collect_no_consent:
     opposes: [d_gdpr, d_protect_privacy]
-    description: collecting data without consent conflicts with privacy and GDPR
 
   d_protect_privacy:
-    opposes: [d_collect_no_consent]
-    description: protecting privacy conflicts with unrestricted data collection
+    opposes: [d_collect_no_consent, d_report]
 
   d_report:
     opposes: [d_protect_privacy]
-    description: reporting a threat may conflict with strict privacy preservation
 
   d_compliant:
     opposes: [d_collect_no_consent]
-    description: legal compliance conflicts with unlawful data collection
 
 
 # =========================================================
 # PRIORITIES (unused in jiminy semantics but required)
 # =========================================================
-
 priorities: {}

@@ -111,11 +111,14 @@ class ArgumentationVisualizer:
             self._add_argument_node(arg, winners)
 
         # Second: add attack edges χ
+        # Contrariety is symmetric: if two heads are contrary, both attack
+        # each other, so we draw the red attack edge in BOTH directions.
         for A in arguments:
             for contrary in contrariness.get(A.hd, []):
                 # We only draw attack edges if the contrary exists
                 if any(B.hd == contrary for B in arguments):
                     self._add_attack_edge(A.hd, contrary)
+                    self._add_attack_edge(contrary, A.hd)
 
         # Third: add defeat edges ≻ (based on priorities)
         for A in arguments:

@@ -2,14 +2,14 @@
 
 class Norm:
     """
-    Representa una norma de la forma:
-        (φ1,...,φn) ==>^τ_s ψ
-    donde:
-        - body = premisas (tuple)
-        - head = conclusión ψ
-        - tau ∈ {"r", "p", "c"}
-        - stakeholder = identificador del stakeholder
-        - id = identificador único de la norma (p.ej. "H2")
+    Represents a norm of the form:
+        (phi1,...,phin) ==>^tau_s psi
+    where:
+        - body = premises (tuple)
+        - head = conclusion psi
+        - tau in {"r", "p", "c"}
+        - stakeholder = stakeholder identifier
+        - id = unique norm identifier (e.g. "H2")
     """
     def __init__(self, body, head, tau, stakeholder, norm_id=None):
         self.body = tuple(body)

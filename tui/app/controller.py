@@ -23,7 +23,7 @@ class JiminyController:
             self.meta_priorities   # New value
         ) = load_scenario(scenario_path)
 
-        # Jiminy instancia objetos Norm, no dicts
+        # Jiminy instantiates Norm objects, not dicts
         self.jim = Jiminy(
             self.norms,
             self.contrariness,
@@ -36,7 +36,7 @@ class JiminyController:
             self.meta_priorities   # Pass new value
         )
 
-        # Estado persistente para el TUI
+        # Persistent state for the TUI
         self.last_args = []
         self.last_accepted = []
         self.last_rejected = []
@@ -56,34 +56,34 @@ class JiminyController:
     def evaluate(self, active_facts,semantics="priority"):
 
         try:
-            # 1. Argumentos
+            # 1. Arguments
             args = self.jim.generate_arguments(active_facts)
 
-            # 2. Semántica
+            # 2. Semantics
             accepted, rejected = self.jim.compute_extension(args, semantics=semantics)
 
             self.last_args = args
             self.last_accepted = accepted
             self.last_rejected = rejected
 
-            # 3. Explicación
+            # 3. Explanation
             narrative = self.jim.explain(
                 accepted, rejected, active_facts, args, debug=False
             )
             self.last_narrative = narrative
 
-            # 4. Acciones morales
+            # 4. Moral actions
             actions = [A.hd for A in accepted if not A.hd.startswith("i")]
             self.last_actions = actions
 
-            # 5. Generar PNG del grafo
+            # 5. Generate graph PNG
             graph_path = self.render_graph()
             self.last_graph_path = graph_path
 
-            # 6. Descripciones de argumentos
-            # 6. Descripciones de argumentos (desde YAML)
+            # 6. Argument descriptions
+            # 6. Argument descriptions (from YAML)
             args_description = {
-                a.hd: self.norm_desc.get(a.hd, "(sin descripción)")
+                a.hd: self.norm_desc.get(a.hd, "(no description)")
                 for a in args
             }
 
@@ -94,15 +94,15 @@ class JiminyController:
 
             # for a in args:
             #     head = a.hd
-            #     desc = "(sin descripción)"
+            #     desc = "(no description)"
 
             #     try:
             #         for norm in self.norms:
             #             if getattr(norm, "conclusion", None) == head:
-            #                 desc = getattr(norm, "description", "(sin descripción)")
+            #                 desc = getattr(norm, "description", "(no description)")
             #                 break
             #     except Exception as e:
-            #         desc = f"(error obteniendo descripción: {e})"
+            #         desc = f"(error getting description: {e})"
 
             #     args_description[head] = desc
 
