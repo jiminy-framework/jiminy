@@ -9,6 +9,14 @@ systems, formal argumentation, stakeholder preferences and context-dependent rea
 @author Francisco J. Rodríguez-Lera (University of León)
 @version 1.0
 
+## Repository
+
+The source code, YAML scenarios, notebooks, tests and documentation of this project
+live in the GitHub repository:
+
+- **GitHub**: <https://github.com/jiminy-framework/jiminy>
+- **Wiki**: <https://github.com/jiminy-framework/jiminy/wiki>
+
 ## Pipeline
 
 ```
@@ -41,6 +49,7 @@ The main entry points are:
     - \ref jiminy::engine::Jiminy::compute_extension
     - \ref jiminy::engine::Jiminy::generate_arguments
     - \ref jiminy::engine::Jiminy::explain
+    - \ref jiminy::engine::Jiminy::explain_causal
 - \ref jiminy::norms::Norm — a normative rule `(phi...) =>^tau_s psi`.
 - \ref jiminy::arguments::Argument — a normative argument built by detachment.
 - \ref jiminy::yaml_loader::load_scenario — load a YAML scenario into the engine.
