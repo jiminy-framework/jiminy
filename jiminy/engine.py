@@ -688,6 +688,18 @@ class Jiminy:
     # GROUNDED SEMANTICS (Dung 1995)
     # ----------------------------------------------------------------------
     def _compute_grounded_extension(self, arguments):
+        """
+        GROUNDED semantics (Dung 1995): least fixed point of the characteristic
+        function, computed by a monotone Kleene iteration.
+
+        Start from the empty set and repeatedly add every argument that is either
+        unattacked or whose attackers are all counter-attacked by the current set,
+        until no change occurs. The result is the least (sceptical, unique)
+        extension.
+
+        @param arguments  list of `Argument`.
+        @return  (accepted, rejected) lists of `Argument`.
+        """
         E = set()
         changed = True
 
@@ -811,6 +823,17 @@ class Jiminy:
     # Computes all maximal admissible sets.
     # ----------------------------------------------------------------------
     def _compute_preferred_extension(self, arguments):
+        """
+        PREFERRED semantics (Dung 1995): maximal admissible sets.
+
+        Enumerates the powerset of the arguments, keeps the admissible sets
+        (conflict-free and self-defending), selects the maximal ones by set
+        inclusion, and — as a Jiminy-specific choice — merges (unions) all
+        preferred extensions into a single accepted set.
+
+        @param arguments  list of `Argument`.
+        @return  (accepted, rejected) lists of `Argument`.
+        """
         admissible_sets = []
 
         # Generate admissible sets
@@ -842,7 +865,19 @@ class Jiminy:
     # ----------------------------------------------------------------------
    
     def _compute_stable_extension(self, arguments):
+        """
+        STABLE semantics (Dung 1995): admissible sets that attack every argument
+        outside the set.
 
+        Enumerates the powerset, keeping the conflict-free sets that attack all
+        arguments outside. Two Jiminy-specific shortcuts:
+          • if there is any symmetric (mutual) attack cycle, no stable extension
+            exists and the empty extension is returned;
+          • if several stable sets exist, the first one is returned.
+
+        @param arguments  list of `Argument`.
+        @return  (accepted, rejected) lists of `Argument`.
+        """
         # Jiminy semantics: symmetric cycles forbid stable extensions
         if self._has_symmetric_cycle(arguments):
             return [], arguments
@@ -954,6 +989,18 @@ class Jiminy:
         return E
 
     def compute_naive_two_phase(self, context):
+        """
+        Public two-phase naive semantics.
+
+        Phase 1 computes a naive (maximal conflict-free) extension over the
+        institutional arguments (τ=c) and collects their institutional heads;
+        phase 2 regenerates the arguments from that institutional fixpoint and
+        computes a naive extension over the τ ∈ {r, p} arguments.
+
+        @param context  iterable of brute facts.
+        @return  tuple (E_c, E_rp, E_all) of the institutional extension, the
+                 regulative/permissive extension and their union.
+        """
         # 1. Generate all arguments
         args = self.generate_arguments(context)
 
@@ -986,7 +1033,25 @@ class Jiminy:
     # Provides transparency and human-readable justification.
     # ----------------------------------------------------------------------
     def explain(self, accepted, rejected, context, generated_arguments=None, debug=False, semantics="priority"):
+        """
+        Build a human-readable NARRATIVE explanation of a reasoning result.
 
+        This is a transparency layer, not part of the formal semantics. The output
+        is composed of the following sections: CONTEXT ANALYSIS, GENERATED
+        ARGUMENTS, DETECTED CONFLICTS, PRIORITY EVALUATION, ACCEPTED ARGUMENTS,
+        REJECTED ARGUMENTS (with the defeating conclusions) and FINAL MORAL
+        RECOMMENDATION. With `debug=True` a NARRATIVE EXPLANATION tailored to the
+        semantics is appended.
+
+        @param accepted             list of accepted `Argument`.
+        @param rejected             list of rejected `Argument`.
+        @param context              the brute facts.
+        @param generated_arguments  optional pre-generated argument list (regenerated
+                                    from `context` if not provided).
+        @param debug                if True, include descriptions and the narrative.
+        @param semantics            semantics label used to select the narrative.
+        @return  a human-readable explanation string.
+        """
         # Detect naive semantics (the launcher does NOT pass it explicitly)
         # We infer it: if all accepted are c/r/p but we don't use priorities → naive
         # Safer: set by the launcher using an optional attribute.
