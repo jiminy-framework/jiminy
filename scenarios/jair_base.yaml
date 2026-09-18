@@ -125,20 +125,19 @@ norms:
     stakeholder: Household
     description: potential threats should be reported
 
-  - id: r5
-    body: [i_threat]
-    conclusion: d_collect_no_consent
-    type: p
-    stakeholder: Manuf
-    description: manufacturer may collect data without consent under threat
+  
 
 
 # ---------------------------------------------------------
 # Permissions (R^p)
 # ---------------------------------------------------------
 
-# (none needed for this minimal scenario)
-
+  - id: r5
+    body: [i_threat]
+    conclusion: d_collect_no_consent
+    type: p
+    stakeholder: Manuf
+    description: manufacturer may collect data without consent under threat
 
 # =========================================================
 # CONTRARIENESS (χ)
